@@ -63,9 +63,16 @@ class ArticlesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let article = articles[indexPath.row]
         cell.textLabel?.text = article["title"]
         cell.detailTextLabel?.text = article["description"]
+        return cell
+    }
+ 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let url = URL(string: articles[indexPath.row]["url"]!)
+        UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
     }
     
 }
